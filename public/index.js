@@ -5,9 +5,13 @@ fetch("/api/transaction")
   .then(response => {
     return response.json();
   })
-  .then(data => {
+  .then(async (data) => {
+    console.log(data)
     // save db data on global variable
     transactions = data;
+
+    const cached_trans = await getValues();
+    console.log('is this here:', cached_trans)
 
     populateTotal();
     populateTable();
@@ -149,5 +153,6 @@ document.querySelector("#add-btn").onclick = function() {
 };
 
 document.querySelector("#sub-btn").onclick = function() {
+  
   sendTransaction(false);
 };
