@@ -24,6 +24,7 @@ request.onerror = function (e) {
   console.log(`Woops! ${e.target.errorCode}`);
 };
 
+//this function checks if there are transacitons stored in the IndexDB that would not be aprt of the cached api response
 function checkValue() {
   return new Promise(function(resolve, reject){
     let transaction = db.transaction(['BudgetStore'], 'readwrite');

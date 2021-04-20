@@ -6,14 +6,18 @@ fetch("/api/transaction")
     return response.json();
   })
   .then((data) => {
+    //check if there are transactions stored in indexDB
     checkValue().then(()=>{
-        transactions = [...indexDBData, ...data];
+      //if so we're offline
+      //build our transactions w/ the indexDB transactions plus the cached api response
+        transactions = [...indexDBData.reverse(), ...data];
   
         populateTotal();
         populateTable();
         populateChart();
       
     }).catch(()=>{
+      //if we're online there should be nothing in indexDB so transactions is just data from the api response
       transactions = data;
       populateTotal();
       populateTable();
