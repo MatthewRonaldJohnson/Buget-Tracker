@@ -7,23 +7,18 @@ fetch("/api/transaction")
   })
   .then((data) => {
     checkValue().then(()=>{
-      //setTimeout(()=>{
-        console.log('indexDBData: ', indexDBData)
         transactions = [...indexDBData, ...data];
   
         populateTotal();
         populateTable();
         populateChart();
-      //}, 1000)
       
     }).catch(()=>{
-      console.log('hit catch')
       transactions = data;
       populateTotal();
       populateTable();
       populateChart();
     });
-    // save db data on global variable
     
   });
 

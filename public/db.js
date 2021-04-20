@@ -25,25 +25,24 @@ request.onerror = function (e) {
 };
 
 function checkValue() {
-  let transaction = db.transaction(['BudgetStore'], 'readwrite');
+  return new Promise(function(resolve, reject){
+    let transaction = db.transaction(['BudgetStore'], 'readwrite');
+  
+    // access your BudgetStore object
+    const store = transaction.objectStore('BudgetStore');
+  
+    // Get all records from store and set to a variable
+    const getAll = store.getAll();
+  
+    getAll.onsuccess = function() {
+        if(!getAll.result.length){
+          reject(indexDBData = []);
+        } else {
+          resolve(indexDBData = getAll.result);
+        }
+    }
 
-  // access your BudgetStore object
-  const store = transaction.objectStore('BudgetStore');
-
-  // Get all records from store and set to a variable
-  const getAll = store.getAll();
-
-  return getAll.onsuccess = function() {
-    return new Promise(function(resolve,reject) {
-      if(!getAll.result.length){
-        console.log('hit if')
-        reject(indexDBData = []);
-      } else {
-        console.log('hit else')
-        resolve(indexDBData = getAll.result);
-      }
-    })
-  }
+  })
 }
 
 function checkDatabase() {
