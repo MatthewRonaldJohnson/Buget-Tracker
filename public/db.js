@@ -1,5 +1,6 @@
 let db;
 let budgetVersion;
+let indexDBData = [];
 
 // Create a new db request for a "budget" database.
 const request = indexedDB.open('BudgetDB', budgetVersion || 21);
@@ -23,6 +24,27 @@ request.onerror = function (e) {
   console.log(`Woops! ${e.target.errorCode}`);
 };
 
+function checkValue() {
+  let transaction = db.transaction(['BudgetStore'], 'readwrite');
+
+  // access your BudgetStore object
+  const store = transaction.objectStore('BudgetStore');
+
+  // Get all records from store and set to a variable
+  const getAll = store.getAll();
+
+  return getAll.onsuccess = function() {
+    return new Promise(function(resolve,reject) {
+      if(!getAll.result.length){
+        console.log('hit if')
+        reject(indexDBData = []);
+      } else {
+        console.log('hit else')
+        resolve(indexDBData = getAll.result);
+      }
+    })
+  }
+}
 
 function checkDatabase() {
   console.log('check db invoked');
