@@ -23,20 +23,6 @@ request.onerror = function (e) {
   console.log(`Woops! ${e.target.errorCode}`);
 };
 
-async function getValues(){
-  console.log('hit');
-  let transaction = db.transaction(['BudgetStore'], 'readwrite');
-  const store = transaction.objectStore('BudgetStore');
-  const getAll = await store.getAll();
-  let data;
-  getAll.onsuccess = function(){
-    data = getAll.result;
-    return
-  }
-  console.log(data)
-  if(data) return data;
-  return 'no data'
-}
 
 function checkDatabase() {
   console.log('check db invoked');

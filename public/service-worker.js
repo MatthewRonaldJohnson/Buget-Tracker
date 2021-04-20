@@ -52,7 +52,7 @@ self.addEventListener('fetch', function(event){
 
                         return response;
                     })
-                    .catch(err => {
+                    .catch(async (err) => {
                         return cache.match(event.request);
                     });
             }).catch(err => console.log(err))

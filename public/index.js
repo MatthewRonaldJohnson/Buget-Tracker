@@ -6,12 +6,8 @@ fetch("/api/transaction")
     return response.json();
   })
   .then(async (data) => {
-    console.log(data)
     // save db data on global variable
     transactions = data;
-
-    const cached_trans = await getValues();
-    console.log('is this here:', cached_trans)
 
     populateTotal();
     populateTable();
